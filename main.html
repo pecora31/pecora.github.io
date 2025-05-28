@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="pageTitle">[Tên Của Bạn] - Portfolio Kỹ Sư Cơ Khí</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Dark theme (user's preferred dark gray) */
+            --bg-primary-dark: #1F2937; 
+            --bg-secondary-dark: #374151e6; 
+            --text-primary-dark: #F3F4F6; 
+            --text-secondary-dark: #D1D5DB; 
+            --accent-ocean-blue-dark: #38BDF8; 
+            --accent-ocean-blue-hover-dark: #0EA5E9; 
+            --accent-steel-gray-dark: #9CA3AF; 
+            --border-color-dark: #4B5563; 
+            --theme-toggle-bg-dark: #4B5563; 
+            --theme-toggle-border-dark: #6B7280;
+
+            /* Light theme (new clean light theme) */
+            --bg-primary-light: #F9FAFB; 
+            --bg-secondary-light: #FFFFFFe6; 
+            --text-primary-light: #111827; 
+            --text-secondary-light: #4B5563; 
+            --accent-ocean-blue-light: #0EA5E9; 
+            --accent-ocean-blue-hover-light: #0284C7; 
+            --accent-steel-gray-light: #6B7280; 
+            --border-color-light: #E5E7EB; 
+            --theme-toggle-bg-light: #E5E7EBe6; 
+            --theme-toggle-border-light: #D1D5DB;
+        }
+
+        html.dark { 
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --accent-primary: var(--accent-ocean-blue-dark);
+            --accent-primary-hover: var(--accent-ocean-blue-hover-dark);
+            --accent-secondary: var(--accent-steel-gray-dark);
+            --border-color: var(--border-color-dark);
+            --theme-toggle-bg: var(--theme-toggle-bg-dark);
+            --theme-toggle-border: var(--theme-toggle-border-dark);
+        }
+
+        html:not(.dark) { 
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --accent-primary: var(--accent-ocean-blue-light);
+            --accent-primary-hover: var(--accent-ocean-blue-hover-light);
+            --accent-secondary: var(--accent-steel-gray-light);
+            --border-color: var(--border-color-light);
+            --theme-toggle-bg: var(--theme-toggle-bg-light);
+            --theme-toggle-border: var(--theme-toggle-border-light);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 18px; 
+        }
+        .section {
+            min-height: auto; 
+            padding-top: 50px; 
+            padding-bottom: 50px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #hero {
+             min-height: auto; 
+             padding-top: 90px; 
+             padding-bottom: 0; 
+        }
+        #bio {
+            padding-top: 40px !important; /* Increased slightly to give a bit more space from hero */
+        }
+        .content-container {
+            max-width: 680px; 
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem; 
+            padding-right: 1rem; 
+        }
+        .text-center-items > * { 
+            text-align: center;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        .heading {
+            font-size: 1.3rem; 
+            font-weight: 600;
+            margin-bottom: 1.25rem; /* Increased margin for heading */
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid var(--border-color);
+            display: inline-block; /* Keeps border only under text */
+            color: var(--text-primary);
+            /* Removed text-align: left; as it will be left by default in its container */
+        }
+        /* Removed .centered-heading-container as it's no longer needed */
+         .bio-year {
+            font-weight: 600;
+            margin-right: 1rem; 
+            color: var(--accent-secondary);
+            flex-shrink: 0; 
+        }
+        .bio-list li {
+            display: flex; 
+            align-items: baseline; 
+            font-size: 0.9rem; 
+        }
+        .work-card {
+            background-color: var(--bg-secondary);
+            border-radius: 0.625rem; 
+            padding: 1rem; 
+            margin-bottom: 1rem; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 8px -1px rgba(0,0,0,0.07), 0 2px 6px -2px rgba(0,0,0,0.07);
+        }
+        html.dark .work-card {
+             box-shadow: 0 4px 8px -1px rgba(0,0,0,0.15), 0 2px 6px -2px rgba(0,0,0,0.1);
+        }
+        .work-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.08);
+        }
+        html.dark .work-card:hover {
+            box-shadow: 0 8px 12px -3px rgba(0,0,0,0.2), 0 4px 6px -4px rgba(0,0,0,0.15);
+        }
+        .work-card img {
+            border-radius: 0.5rem; 
+            margin-bottom: 0.75rem;
+        }
+        .nav-link {
+            @apply px-3 py-1.5 rounded-md font-medium transition-colors; 
+            color: var(--text-secondary);
+            font-size: 0.9rem; 
+        }
+        .nav-link:hover {
+            color: var(--accent-primary); 
+            background-color: transparent; 
+        }
+        footer {
+            background-color: var(--bg-primary);
+            transition: background-color 0.3s ease;
+            padding-top: 2rem; 
+            padding-bottom: 2rem;
+        }
+        .theme-toggle-btn { 
+            @apply flex items-center transition-all duration-300 ease-in-out; 
+            padding: 0.5rem; 
+            background-color: var(--theme-toggle-bg); 
+            border: 1px solid var(--theme-toggle-border); 
+            color: var(--text-secondary);
+            border-radius: 0.5rem; 
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+        }
+        .theme-toggle-btn svg { 
+            width: 1rem; height: 1rem;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--accent-secondary); 
+            color: var(--bg-primary); 
+            border-color: var(--accent-secondary);
+            transform: translateY(-1px); 
+            box-shadow: 0 5px 8px -1px rgba(0,0,0,0.1), 0 3px 5px -2px rgba(0,0,0,0.1);
+        }
+        html:not(.dark) .theme-toggle-btn:hover { 
+             color: #FFFFFF; 
+        }
+        .lang-toggle-btn { 
+             @apply p-1.5 rounded-md transition-colors flex items-center; 
+            background-color: transparent;
+            color: var(--text-secondary);
+            font-size: 0.85rem; 
+        }
+        .lang-toggle-btn:hover {
+            color: var(--accent-primary); 
+            background-color: transparent !important; 
+        }
+
+        .social-icon svg { 
+             width: 1rem; height: 1rem;
+        }
+        .social-icon {
+            color: var(--text-secondary);
+            transition: color 0.2s ease-in-out;
+        }
+        .social-icon:hover {
+            color: var(--accent-primary);
+        }
+        .navbar-container {
+            background-color: var(--bg-secondary); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); 
+        }
+        /* Font size adjustments */
+        #hero h1 { font-size: 1.75rem; line-height: 2.2rem; margin-bottom: 0.5rem; } 
+        #hero p[data-translate="heroSubtitle"] { font-size: 1rem; line-height: 1.6rem; margin-bottom: 0.75rem; } 
+        #hero p[data-translate="heroDescription"] { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; } 
+        
+        .work-card h3 { font-size: 1rem; margin-bottom: 0.2rem;} 
+        .work-card p { font-size: 0.85rem; line-height: 1.4; margin-bottom: 0.4rem;} 
+        .work-card a { font-size: 0.85rem; }
+
+        footer p { font-size: 0.85rem; }
+
+
+    </style>
+</head>
+<body>
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 pt-3 pb-3"> 
+        <nav class="navbar-container max-w-3xl mx-auto rounded-lg shadow-lg px-4 sm:px-6 py-1.5 flex justify-between items-center"> 
+            <div class="flex items-center space-x-3">  
+                <a href="#hero" class="text-lg font-bold" style="color: var(--text-primary);" data-translate="navBrandName">[Tên Của Bạn]</a>
+                <a href="[LINK_FACEBOOK_CUA_BAN]" target="_blank" class="social-icon" title="Facebook">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9.19795 21.5H13.198V13.4901H16.8021L17.198 9.50977H13.198V7.5C13.198 6.94772 13.6457 6.5 14.198 6.5H17.198V2.5H14.198C11.4365 2.5 9.19795 4.73858 9.19795 7.5V9.50977H7.19795L6.80206 13.4901H9.19795V21.5Z"/></svg>
+                </a>
+                <a href="[LINK_X_CUA_BAN]" target="_blank" class="social-icon" title="X (Twitter)">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="mailto:[EMAIL_CUA_BAN]" class="social-icon" title="Gmail">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4ZM19.6259 6L12 11.7812L4.37413 6H19.6259ZM4 18V7.31213L12 13.2188L20 7.31213V18H4Z"/></svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-4"> 
+                <a href="#work" class="nav-link" data-translate="navProjects">Dự Án</a>
+                <button id="lang-toggle" class="lang-toggle-btn" aria-label="Chuyển đổi ngôn ngữ"> 
+                    <span class="font-semibold">VI</span> 
+                </button>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Chuyển đổi chủ đề"> 
+                    {/* Icon sẽ được JS thêm vào */}
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero" class="section flex flex-col justify-center items-center text-center">
+        <div class="content-container text-center-items"> 
+            <div class="mb-5"> 
+                <img src="https://placehold.co/120x120/374151/F3F4F6?text=Ảnh" alt="Ảnh đại diện" class="w-24 h-24 md:w-28 md:h-28 mx-auto rounded-full border-4 shadow-lg" style="border-color: var(--accent-secondary);"> 
+            </div>
+            <h1 style="color: var(--text-primary);" data-translate="heroTitle">Xin chào, tôi là [Tên Của Bạn]</h1> 
+            <p style="color: var(--accent-primary);" data-translate="heroSubtitle">Kỹ Sư Cơ Khí | Đam Mê Công Nghệ & Game</p> 
+            <p class="max-w-md mx-auto text-justify" style="color: var(--text-secondary);" data-translate="heroDescription"> 
+                Tôi là một Kỹ sư Cơ khí với niềm đam mê mãnh liệt dành cho công nghệ quân sự, cơ khí chính xác và thế giới trò chơi điện tử. Tôi luôn tìm tòi, học hỏi để ứng dụng kỹ thuật vào việc tạo ra những giải pháp sáng tạo và hiệu quả.
+            </p>
+        </div>
+    </section>
+
+    <section id="bio" class="section">
+        <div class="content-container">
+            <h2 class="heading" data-translate="bioHeading">Tiểu Sử</h2>
+            <ul class="space-y-2.5 bio-list" style="color: var(--text-secondary);"> 
+                <li>
+                    <span class="bio-year" data-translate="bioYear1">2003</span>
+                    <span data-translate="bioEvent1">Sinh ra và lớn lên tại [Thành phố, Quốc gia].</span>
+                </li>
+                <li>
+                    <span class="bio-year" data-translate="bioYear2">202X</span>
+                    <span data-translate="bioEvent2">Tốt nghiệp Kỹ sư Cơ khí tại [Tên trường Đại học], chuyên ngành [Chuyên ngành].</span>
+                </li>
+                <li>
+                    <span class="bio-year" data-translate="bioYear3">Hiện tại</span>
+                    <span data-translate="bioEvent3">Đam mê nghiên cứu công nghệ quân sự, cơ khí chính xác và khám phá thế giới game.</span>
+                </li>
+                 <li>
+                    <span class="bio-year" data-translate="bioYear4">Mục tiêu</span>
+                    <span data-translate="bioEvent4">Tìm kiếm cơ hội ứng dụng kỹ thuật vào các dự án đột phá và ý nghĩa.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="work" class="section">
+        <div class="content-container">
+            <h2 class="heading" data-translate="workHeading">Dự Án Nổi Bật</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">  
+                <div class="work-card">
+                    <img src="https://placehold.co/600x350/374151/D1D5DB?text=Dự+Án+Cơ+Khí" alt="Hình ảnh dự án cơ khí" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x350/374151/D1D5DB?text=Lỗi+Ảnh';">
+                    <h3 style="color: var(--accent-primary);" data-translate="project1Title">Thiết Kế Hệ Thống [Tên Hệ Thống]</h3> 
+                    <p class="text-justify" style="color: var(--text-secondary);" data-translate="project1Desc">Phát triển và tối ưu hóa thiết kế cho hệ thống [Mô tả ngắn về hệ thống]. Sử dụng phần mềm CAD/CAM/CAE như SolidWorks, ANSYS để mô phỏng và phân tích. Tập trung vào [Mục tiêu chính của dự án].</p> 
+                    <a href="#" target="_blank" class="font-medium" style="color: var(--accent-primary); hover: var(--accent-primary-hover);" data-translate="projectLink">Xem chi tiết (nếu có) &rarr;</a>
+                </div>
+                <div class="work-card">
+                    <img src="https://placehold.co/600x350/374151/D1D5DB?text=Dự+Án+Công+Nghệ" alt="Hình ảnh dự án công nghệ/game" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x350/374151/D1D5DB?text=Lỗi+Ảnh';">
+                    <h3 style="color: var(--accent-primary);" data-translate="project2Title">Nghiên Cứu/Mod Game [Tên Game]</h3>
+                    <p class="text-justify" style="color: var(--text-secondary);" data-translate="project2Desc">Phân tích cơ chế gameplay hoặc phát triển bản mod cho [Tên Game], tập trung vào việc [Mô tả mục tiêu của mod/nghiên cứu]. Ứng dụng kiến thức về [Kỹ năng liên quan, ví dụ: scripting, 3D modeling cơ bản, game engine].</p>
+                    <a href="#" target="_blank" class="font-medium" style="color: var(--accent-primary); hover: var(--accent-primary-hover);" data-translate="projectLinkGH">Xem trên GitHub/Forum (nếu có) &rarr;</a>
+                </div>
+                <div class="work-card">
+                    <img src="https://placehold.co/600x350/374151/D1D5DB?text=Dự+Án+Cá+Nhân" alt="Hình ảnh dự án cá nhân" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x350/374151/D1D5DB?text=Lỗi+Ảnh';">
+                    <h3 style="color: var(--accent-primary);" data-translate="project3Title">Mô Phỏng [Hệ Thống Quân Sự]</h3>
+                    <p class="text-justify" style="color: var(--text-secondary);" data-translate="project3Desc">Dự án cá nhân tìm hiểu và mô phỏng nguyên lý hoạt động của [một loại vũ khí hoặc hệ thống quân sự cụ thể] bằng [công cụ mô phỏng/phần mềm].</p>
+                    <a href="#" target="_blank" class="font-medium" style="color: var(--accent-primary); hover: var(--accent-primary-hover);" data-translate="projectLinkDoc">Xem tài liệu (nếu có) &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-6 mt-8">  
+        <p style="color: var(--text-secondary);" data-translate="footerCopyright">&copy; <span id="currentYear"></span> [Tên Của Bạn]. All Rights Reserved.</p>
+         <p class="mt-1" style="color: var(--accent-secondary);" data-translate="footerInspiration">Lấy cảm hứng từ phong cách tối giản & hiện đại.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Translations ---
+            const translations = {
+                en: {
+                    pageTitle: "[Your Name] - Mechanical Engineer Portfolio",
+                    navBrandName: "[Your Name]",
+                    navProjects: "Projects",
+                    heroTitle: "Hello, I'm [Your Name]",
+                    heroSubtitle: "Mechanical Engineer | Tech & Gaming Enthusiast",
+                    heroDescription: "I am a Mechanical Engineer with a strong passion for military technology, precision mechanics, and the world of video games. I am always exploring and learning to apply engineering to create innovative and effective solutions.",
+                    bioHeading: "Bio",
+                    bioYear1: "2003",
+                    bioEvent1: "Born and raised in [City, Country].",
+                    bioYear2: "202X",
+                    bioEvent2: "Graduated as a Mechanical Engineer from [University Name], majoring in [Major].",
+                    bioYear3: "Present",
+                    bioEvent3: "Passionate about researching military tech, precision mechanics, and exploring the gaming world.",
+                    bioYear4: "Goal",
+                    bioEvent4: "Seeking opportunities to apply engineering skills to groundbreaking and meaningful projects.",
+                    workHeading: "Featured Projects",
+                    project1Title: "Design of [System Name] System",
+                    project1Desc: "Developed and optimized the design for the [Brief system description] system. Used CAD/CAM/CAE software like SolidWorks, ANSYS for simulation and analysis. Focused on [Main project objective].",
+                    projectLink: "View Details (if any) →",
+                    project2Title: "Research/Mod Game [Game Name]",
+                    project2Desc: "Analyzed gameplay mechanics or developed a mod for [Game Name], focusing on [Mod/research objective]. Applied knowledge of [Related skills, e.g., scripting, basic 3D modeling, game engine].",
+                    projectLinkGH: "View on GitHub/Forum (if any) →",
+                    project3Title: "Simulation of [Military System]",
+                    project3Desc: "Personal project to study and simulate the operating principles of [a specific weapon or military system] using [simulation tool/software].",
+                    projectLinkDoc: "View Documentation (if any) →",
+                    footerCopyright: "© [Current Year] [Your Name]. All Rights Reserved.",
+                    footerInspiration: "Inspired by minimalist & modern styles."
+                },
+                vi: {
+                    pageTitle: "[Tên Của Bạn] - Portfolio Kỹ Sư Cơ Khí",
+                    navBrandName: "[Tên Của Bạn]",
+                    navProjects: "Dự Án",
+                    heroTitle: "Xin chào, tôi là [Tên Của Bạn]",
+                    heroSubtitle: "Kỹ Sư Cơ Khí | Đam Mê Công Nghệ & Game",
+                    heroDescription: "Tôi là một Kỹ sư Cơ khí với niềm đam mê mãnh liệt dành cho công nghệ quân sự, cơ khí chính xác và thế giới trò chơi điện tử. Tôi luôn tìm tòi, học hỏi để ứng dụng kỹ thuật vào việc tạo ra những giải pháp sáng tạo và hiệu quả.",
+                    bioHeading: "Tiểu Sử",
+                    bioYear1: "2003",
+                    bioEvent1: "Sinh ra và lớn lên tại [Thành phố, Quốc gia].",
+                    bioYear2: "202X",
+                    bioEvent2: "Tốt nghiệp Kỹ sư Cơ khí tại [Tên trường Đại học], chuyên ngành [Chuyên ngành].",
+                    bioYear3: "Hiện tại",
+                    bioEvent3: "Đam mê nghiên cứu công nghệ quân sự, cơ khí chính xác và khám phá thế giới game.",
+                    bioYear4: "Mục tiêu",
+                    bioEvent4: "Tìm kiếm cơ hội ứng dụng kỹ thuật vào các dự án đột phá và ý nghĩa.",
+                    workHeading: "Dự Án Nổi Bật",
+                    project1Title: "Thiết Kế Hệ Thống [Tên Hệ Thống]",
+                    project1Desc: "Phát triển và tối ưu hóa thiết kế cho hệ thống [Mô tả ngắn về hệ thống]. Sử dụng phần mềm CAD/CAM/CAE như SolidWorks, ANSYS để mô phỏng và phân tích. Tập trung vào [Mục tiêu chính của dự án].",
+                    projectLink: "Xem chi tiết (nếu có) →",
+                    project2Title: "Nghiên Cứu/Mod Game [Tên Game]",
+                    project2Desc: "Phân tích cơ chế gameplay hoặc phát triển bản mod cho [Tên Game], tập trung vào việc [Mô tả mục tiêu của mod/nghiên cứu]. Ứng dụng kiến thức về [Kỹ năng liên quan, ví dụ: scripting, 3D modeling cơ bản, game engine].",
+                    projectLinkGH: "Xem trên GitHub/Forum (nếu có) →",
+                    project3Title: "Mô Phỏng [Hệ Thống Quân Sự]",
+                    project3Desc: "Dự án cá nhân tìm hiểu và mô phỏng nguyên lý hoạt động của [một loại vũ khí hoặc hệ thống quân sự cụ thể] bằng [công cụ mô phỏng/phần mềm].",
+                    projectLinkDoc: "Xem tài liệu (nếu có) →",
+                    footerCopyright: "© [Năm Hiện Tại] [Tên Của Bạn]. Mọi quyền được bảo lưu.",
+                    footerInspiration: "Lấy cảm hứng từ phong cách tối giản & hiện đại."
+                }
+            };
+
+            // --- Theme Toggle ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const sunIcon = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 101.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.061zM5.404 6.464a.75.75 0 101.06-1.06l-1.06-1.06a.75.75 0 10-1.06 1.06l1.06 1.06z"></path></svg>`; 
+            const moonIcon = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.455 2.104a.75.75 0 00-.965.579A9.006 9.006 0 006.93 6.65a8.999 8.999 0 005.708 11.836.75.75 0 00.964-.578A9.008 9.008 0 0014.07 13.35a8.999 8.999 0 00-5.708-11.836.75.75 0 00-.907-.41z" clip-rule="evenodd"></path></svg>`; 
+
+            function applyTheme(theme) {
+                if (theme === 'dark') { 
+                    document.documentElement.classList.remove('dark'); 
+                    if (themeToggle) themeToggle.innerHTML = sunIcon; 
+                } else { 
+                    document.documentElement.classList.add('dark');
+                    if (themeToggle) themeToggle.innerHTML = moonIcon; 
+                }
+            }
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const isCurrentlyUserDarkGray = !document.documentElement.classList.contains('dark');
+                    const newThemeToStore = isCurrentlyUserDarkGray ? 'light' : 'dark'; 
+                    localStorage.setItem('theme', newThemeToStore);
+                    applyTheme(newThemeToStore);
+                });
+            }
+            
+            let savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) { 
+                savedTheme = 'dark'; 
+            }
+            applyTheme(savedTheme);
+
+
+            // --- Language Toggle ---
+            const langToggle = document.getElementById('lang-toggle');
+            let langToggleTextEl = null;
+
+            if (langToggle) {
+                langToggleTextEl = langToggle.querySelector('span');
+                if (!langToggleTextEl) {
+                    console.error("Language toggle span not found inside #lang-toggle button.");
+                }
+            } else {
+                console.error("Language toggle button #lang-toggle not found.");
+            }
+
+            function applyLanguage(lang) {
+                document.documentElement.lang = lang;
+                document.querySelectorAll('[data-translate]').forEach(el => {
+                    const key = el.getAttribute('data-translate');
+                    if (translations[lang] && translations[lang][key]) {
+                        let translatedText = translations[lang][key];
+                        translatedText = translatedText.replace(/\[(Năm Hiện Tại|Current Year)\]/g, new Date().getFullYear());
+                        el.textContent = translatedText;
+
+                        if (key === "pageTitle") {
+                            document.title = translatedText;
+                        }
+                    }
+                });
+                if (langToggleTextEl) { 
+                    langToggleTextEl.textContent = lang.toUpperCase();
+                }
+                localStorage.setItem('language', lang);
+            }
+
+            if (langToggle) {
+                langToggle.addEventListener('click', () => {
+                    const currentLang = localStorage.getItem('language') === 'vi' ? 'en' : 'vi';
+                    applyLanguage(currentLang);
+                });
+            }
+            
+            const savedLang = localStorage.getItem('language') || 'vi';
+            applyLanguage(savedLang);
+
+
+            // --- Other Scripts ---
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            document.querySelectorAll('header nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbar = document.querySelector('header nav'); 
+                        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                        const headerPaddingTop = parseFloat(getComputedStyle(document.querySelector('header')).paddingTop) || 0;
+                        const targetPosition = targetElement.offsetTop - navbarHeight - headerPaddingTop - 20; 
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
